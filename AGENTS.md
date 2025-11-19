@@ -1,0 +1,606 @@
+# AGENTS.md - White Label UI Template Project Rules
+
+## Project Overview
+
+This is a **Next.js template project** for creating pages using **ONLY** components from the `@dejstdm/white-label-ui` NPM package. The package is developed in the [white-label-ui-lib](https://github.com/dejstdm/white-label-ui-lib) repository and published to NPM as `@dejstdm/white-label-ui`.
+
+**Core Principle**: All pages MUST be composed exclusively using components from `@dejstdm/white-label-ui`. No custom React components, custom styling, or direct HTML structure should be used for page content.
+
+---
+
+## 1. Component Usage Rules
+
+### 1.1 Allowed Components
+
+**ONLY** use components exported from `@dejstdm/white-label-ui`:
+
+#### Navigation & Layout
+- `NavBar` - Navigation bar with sticky option, menu items, mobile burger menu
+- `Footer` - Footer with logo, links, and content sections
+
+#### Hero Section
+- `Hero` - Full-width hero section with background image, headline, body content, optional button
+
+#### Content Sections
+- `TextSection` - Text content section with headline and WYSIWYG content
+- `ImageSection` - Image gallery section with optional slider/carousel
+
+#### Feature Components
+- `ProductSlider` - Product carousel/slider with navigation controls
+- `RecipeSlider` - Recipe carousel/slider with navigation and pagination
+- `FAQ` - FAQ accordion with expandable questions/answers
+- `SocialMediaFeed` - Social media feed component
+
+#### Social Icon Components
+- `FacebookIcon` - Facebook social icon as React SVG component
+- `InstagramIcon` - Instagram social icon as React SVG component
+- `XTwitterIcon` - X (Twitter) social icon as React SVG component
+
+### 1.2 Component Import Rules
+
+**REQUIRED**: Import components ONLY from `@dejstdm/white-label-ui`:
+
+```typescript
+import { 
+  NavBar, Hero, Footer, TextSection, ImageSection, 
+  ProductSlider, RecipeSlider, FAQ, SocialMediaFeed,
+  FacebookIcon, InstagramIcon, XTwitterIcon 
+} from '@dejstdm/white-label-ui';
+```
+
+**Internal Components (NOT Exported)**:
+The following components are used internally by the package and are **NOT** available for import:
+- `Container` - Layout container (used internally by all section components)
+- `Button` - Button component (used internally by Hero, sliders, and social feed)
+- `Heading` - Typography heading (used internally by Hero and sections)
+- `Text` - Typography text component (internal primitive)
+- `WysiwygContent` - WYSIWYG content renderer (used internally for CMS content)
+- `SectionHeader` - Section header component (used internally by section components)
+
+**FORBIDDEN**:
+- Creating custom React components for page content
+- Using raw HTML elements for layout (div, section, article, etc.) - except where required by Next.js App Router structure
+- Importing UI components from other libraries
+- Creating wrapper components around white-label-ui components
+- Attempting to import internal components (Container, Button, Heading, Text, WysiwygContent)
+
+### 1.3 Next.js Framework Elements
+
+**ALLOWED** Next.js-specific elements:
+- `next/image` - For optimized images (when not using ImageSection)
+- `next/link` - For Next.js routing (components may use this internally)
+- Next.js App Router structure (`layout.tsx`, `page.tsx`, route groups, etc.)
+- Next.js metadata exports
+- Next.js font optimization (`next/font`)
+
+**FORBIDDEN**:
+- Using Next.js Image/Link to create custom UI components
+- Wrapping white-label-ui components unnecessarily
+
+### 1.4 Peer Dependencies
+
+**REQUIRED** peer dependencies (install separately):
+- `react` (>=18)
+- `react-dom` (>=18)
+- `swiper` (^12.0.0) - Required for slider components (`ProductSlider`, `RecipeSlider`, `ImageSection`)
+
+**Installation**:
+```bash
+npm install react react-dom swiper
+```
+
+### 1.5 Swiper CSS (Required for Slider Components)
+
+If using slider components (`ProductSlider`, `RecipeSlider`, `ImageSection`), **MUST** import Swiper CSS:
+
+```typescript
+// In layout.tsx or page.tsx
+import 'swiper/css';
+import 'swiper/css/navigation';  // For navigation arrows
+import 'swiper/css/pagination';  // For pagination dots (used in RecipeSlider)
+```
+
+---
+
+## 2. Page Composition Rules
+
+### 2.1 Page Structure
+
+Pages should be composed using white-label-ui components in a logical order:
+
+**Typical Page Structure**:
+1. `NavBar` (if not in layout)
+2. `Hero` (optional, for landing pages)
+3. `TextSection` / `ImageSection` (content sections)
+4. `ProductSlider` / `RecipeSlider` (feature sections)
+5. `FAQ` (if needed)
+6. `SocialMediaFeed` (if needed)
+7. `Footer` (if not in layout)
+
+### 2.2 Layout Files
+
+**`layout.tsx` Rules**:
+- **MUST** import component styles: `@dejstdm/white-label-ui/dist/style.css` (includes default theme automatically)
+- **OPTIONAL** for non-default themes: Import theme CSS: `@dejstdm/white-label-ui/themes/<brand>/dist/theme.css`
+- **OPTIONAL** for non-default themes: Set `data-theme` attribute on `<html>` element: `<html data-theme="<brand>">`
+- Can include `NavBar` and `Footer` if they appear on all pages
+- Can use Next.js font optimization
+- **FORBIDDEN**: Custom CSS classes or styling in layout
+
+**Example Layout (Default Theme)**:
+```typescript
+import '@dejstdm/white-label-ui/dist/style.css';
+import { NavBar, Footer } from '@dejstdm/white-label-ui';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <NavBar {...navProps} />
+        {children}
+        <Footer {...footerProps} />
+      </body>
+    </html>
+  );
+}
+```
+
+**Example Layout (Custom Theme - 7up)**:
+```typescript
+import '@dejstdm/white-label-ui/dist/style.css';
+import '@dejstdm/white-label-ui/themes/7up/dist/theme.css';
+import { NavBar, Footer } from '@dejstdm/white-label-ui';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" data-theme="7up">
+      <body>
+        <NavBar {...navProps} />
+        {children}
+        <Footer {...footerProps} />
+      </body>
+    </html>
+  );
+}
+```
+
+**Example Layout (With Swiper CSS for Sliders)**:
+```typescript
+import '@dejstdm/white-label-ui/dist/style.css';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { NavBar, Footer } from '@dejstdm/white-label-ui';
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <NavBar {...navProps} />
+        {children}
+        <Footer {...footerProps} />
+      </body>
+    </html>
+  );
+}
+```
+
+### 2.3 Page Files
+
+**`page.tsx` Rules**:
+- MUST compose pages using ONLY white-label-ui components
+- Components should be direct children or siblings (no custom wrapper divs)
+- **FORBIDDEN**: Custom CSS modules, inline styles, or custom className props
+- **FORBIDDEN**: Custom wrapper components or layout divs
+
+**Example Page**:
+```typescript
+import { Hero, TextSection, ImageSection } from '@dejstdm/white-label-ui';
+
+export default function HomePage() {
+  return (
+    <>
+      <Hero {...heroProps} />
+      <TextSection {...textProps} />
+      <ImageSection {...imageProps} />
+    </>
+  );
+}
+```
+
+---
+
+## 3. Styling and Theming Rules
+
+### 3.1 Theme System
+
+**REQUIRED**:
+- Use the theming system provided by `@dejstdm/white-label-ui`
+- Import component styles: `@dejstdm/white-label-ui/dist/style.css` (default theme is automatically included)
+
+**OPTIONAL** (for non-default themes):
+- Import theme CSS: `@dejstdm/white-label-ui/themes/<brand>/dist/theme.css`
+- Set `data-theme` attribute on `<html>` element: `<html data-theme="<brand>">`
+
+**Available Themes**:
+- `default` - Automatically included with `@dejstdm/white-label-ui/dist/style.css`, no additional import needed
+- `7up` - Import from `@dejstdm/white-label-ui/themes/7up/dist/theme.css`
+- `lays` - Import from `@dejstdm/white-label-ui/themes/lays/dist/theme.css`
+
+**Theme Behavior**:
+- Default theme works immediately after importing `dist/style.css` - no `data-theme` attribute needed
+- Custom themes require both CSS import AND `data-theme` attribute on `<html>` element
+- Themes use CSS variables scoped to `[data-theme="brand-x"]` selectors
+
+**FORBIDDEN**:
+- Custom CSS files for page styling (except minimal global resets if absolutely necessary)
+- Inline styles on components
+- CSS modules for page content
+- Overriding component styles with custom CSS
+- Using `!important` to override theme styles
+
+### 3.2 CSS Variables
+
+Components use CSS variables from the theme system. **DO NOT**:
+- Override CSS variables directly
+- Create custom CSS variables that conflict with theme variables
+- Modify theme CSS files
+
+### 3.3 Global Styles
+
+**ALLOWED**:
+- Minimal global resets in `globals.css` (if absolutely necessary)
+- Next.js font variable definitions
+
+**FORBIDDEN**:
+- Component-specific styles
+- Layout styles
+- Theme overrides
+
+---
+
+## 4. Component Props and Configuration
+
+### 4.1 Component Props
+
+- Use component props as defined in the package
+- Check Storybook documentation in [white-label-ui-lib](https://github.com/dejstdm/white-label-ui-lib) for available props
+- Components accept CMS/content data through props
+- All components are standalone and manage their own internal layout (each includes `Container` internally)
+
+### 4.2 CMS Content Handling
+
+**Important**: Components accept HTML strings from CMS rich text editors for specific props:
+- **HtmlString props** (`text`, `subheadline`, `body`, `description`, etc.) accept HTML strings (e.g., `"<h2>Title</h2>"`, `"<p>Description</p>"`)
+- **PlainText props** (`headline`, `buttonLabel`, etc.) accept **plain text only** - no HTML tags
+- Components use internal `WysiwygContent` component to render CMS HTML safely
+- **DO NOT** wrap CMS HTML in React components - pass HTML strings directly to props
+- Example: `text="<p>Our Products</p>"` (HtmlString) vs `headline="Our Products"` (PlainText)
+
+### 4.3 Social Icons Usage
+
+**Social icon components are React components** that can be used in `Footer` and `SocialMediaFeed` components:
+
+**Available Icon Components**:
+- `FacebookIcon` - Accepts `title`, `color`, `size` props (plus standard SVG props)
+- `InstagramIcon` - Accepts `title`, `color`, `size` props (plus standard SVG props)
+- `XTwitterIcon` - Accepts `title`, `color`, `size` props (plus standard SVG props)
+
+**Usage in Footer**:
+```typescript
+import { Footer, FacebookIcon, InstagramIcon, XTwitterIcon } from '@dejstdm/white-label-ui';
+
+const socialLinks = [
+  {
+    name: 'Facebook',
+    href: 'https://facebook.com/yourpage',
+    icon: <FacebookIcon size={24} color="#1877F2" />
+  },
+  {
+    name: 'Instagram',
+    href: 'https://instagram.com/yourpage',
+    icon: <InstagramIcon size={24} />
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/yourpage',
+    icon: <XTwitterIcon size={24} />
+  }
+];
+
+<Footer socialLinks={socialLinks} />
+```
+
+**Usage in SocialMediaFeed**:
+```typescript
+import { SocialMediaFeed, FacebookIcon, InstagramIcon } from '@dejstdm/white-label-ui';
+
+const socialLinks = [
+  {
+    name: 'Follow us on Facebook',
+    href: 'https://facebook.com/yourpage',
+    icon: <FacebookIcon size={20} />
+  },
+  {
+    name: 'Follow us on Instagram',
+    href: 'https://instagram.com/yourpage',
+    icon: <InstagramIcon size={20} />
+  }
+];
+
+<SocialMediaFeed socialLinks={socialLinks} />
+```
+
+**Icon Props**:
+- `size?: number` - Icon size in pixels (default varies by component)
+- `color?: string` - Icon color (CSS color value, defaults to current text color)
+- `title?: string` - Accessibility title for the icon
+- All standard SVG props are also supported
+
+### 4.4 Type Definitions and Type Safety
+
+**REQUIRED**: Always check and respect type definitions from `@dejstdm/white-label-ui`:
+
+- **Check type definitions** before using components - inspect `node_modules/@dejstdm/white-label-ui/dist/index.d.ts`
+- **Respect prop types** - use props exactly as defined in the type definitions
+- **Understand type distinctions**:
+  - `PlainText` - Plain text only, no HTML (e.g., `headline`, `buttonLabel`)
+  - `HtmlString` - HTML strings from CMS (e.g., `text`, `subheadline`, `body`)
+- **Run type checking**: Use `npm run type-check` to verify types are correct
+- **Note**: Both `PlainText` and `HtmlString` are type aliases for `string`, so TypeScript cannot distinguish them at compile time. You must manually ensure:
+  - `PlainText` props receive plain text only
+  - `HtmlString` props can receive HTML strings
+
+**Example - Checking Types**:
+```typescript
+// Check the type definition first
+import type { TextSectionProps } from '@dejstdm/white-label-ui';
+
+// TextSectionProps.headline is PlainText (plain text only)
+// TextSectionProps.text is HtmlString (can contain HTML)
+
+// ✅ Correct usage
+<TextSection 
+  headline="Welcome"  // PlainText - no HTML
+  text="<p>This is HTML content</p>"  // HtmlString - can contain HTML
+/>
+
+// ❌ Wrong - HTML in PlainText prop
+<TextSection headline="<h2>Welcome</h2>" />  // TypeScript won't catch this, but it's wrong
+```
+
+### 4.5 Data Structure
+
+- Components expect data in specific formats (check package documentation)
+- Use TypeScript types from the package if available
+- Pass data directly to components - no data transformation wrappers
+- Components handle their own internal layout using the `Container` component (no need to wrap in containers)
+
+---
+
+## 5. Development Workflow
+
+### 5.1 Adding New Components
+
+**FORBIDDEN** in this template project:
+- Creating new React components
+- Modifying existing white-label-ui components
+- Creating component wrappers
+
+**REQUIRED**:
+- Request new components in the [white-label-ui-lib](https://github.com/dejstdm/white-label-ui-lib) repository
+- Use existing components creatively to achieve desired layouts
+- Check package documentation for component capabilities
+
+### 5.2 Package Updates
+
+- Regularly update `@dejstdm/white-label-ui` to latest version
+- Check package changelog for breaking changes
+- Test pages after package updates
+
+### 5.3 Testing
+
+- Test pages with different themes
+- Verify responsive behavior (components are mobile-first)
+- Test component prop variations
+- Verify accessibility (components should include a11y features)
+
+---
+
+## 6. File Structure Rules
+
+### 6.1 Allowed File Types
+
+**ALLOWED**:
+- `page.tsx` - Next.js page files using white-label-ui components
+- `layout.tsx` - Next.js layout with theme imports
+- `globals.css` - Minimal global styles only
+- Route groups, dynamic routes, API routes (Next.js features)
+- TypeScript type definitions (if needed for data)
+
+**FORBIDDEN**:
+- Custom component files (`components/` directory with React components)
+- CSS modules for pages (`*.module.css` for page styling)
+- Custom utility components
+- Wrapper components
+
+### 6.2 Directory Structure
+
+```
+src/
+├── app/
+│   ├── layout.tsx          # Root layout with theme imports
+│   ├── page.tsx            # Home page using white-label-ui components
+│   ├── globals.css         # Minimal global styles only
+│   └── [routes]/           # Additional pages using white-label-ui components
+└── ...
+```
+
+**FORBIDDEN**:
+- `src/components/` - No custom components
+- `src/lib/` - No custom utilities (unless for data fetching/API)
+- `src/styles/` - No custom stylesheets
+
+---
+
+## 7. Code Quality Rules
+
+### 7.1 TypeScript
+
+- Use TypeScript for all files
+- **Always check type definitions** from `@dejstdm/white-label-ui` before using components (see section 4.4)
+- Import types from `@dejstdm/white-label-ui` if available
+- Use `npm run type-check` to verify types are correct
+- Respect prop types exactly as defined - do not pass incorrect types (e.g., HTML to PlainText props)
+- Define data types for component props if needed
+
+### 7.2 Code Style
+
+- Follow Next.js and React best practices
+- Use functional components
+- Use const for component definitions
+- Descriptive variable names
+- Early returns when possible
+
+### 7.3 Accessibility
+
+- Components from white-label-ui should include accessibility features
+- Ensure proper semantic HTML (components handle this)
+- Test with keyboard navigation
+- Test with screen readers
+
+---
+
+## 8. Common Patterns
+
+### 8.1 Multi-Section Page
+
+```typescript
+import { Hero, TextSection, ImageSection, FAQ, Footer } from '@dejstdm/white-label-ui';
+
+export default function AboutPage() {
+  return (
+    <>
+      <Hero {...heroData} />
+      <TextSection {...introData} />
+      <ImageSection {...galleryData} />
+      <TextSection {...storyData} />
+      <FAQ {...faqData} />
+    </>
+  );
+}
+```
+
+### 8.2 Product/Content Listing Page
+
+```typescript
+import { NavBar, ProductSlider, TextSection, Footer } from '@dejstdm/white-label-ui';
+
+export default function ProductsPage() {
+  return (
+    <>
+      <ProductSlider {...productsData} />
+      <TextSection {...descriptionData} />
+    </>
+  );
+}
+```
+
+### 8.3 Footer with Social Icons
+
+```typescript
+import { Footer, FacebookIcon, InstagramIcon, XTwitterIcon } from '@dejstdm/white-label-ui';
+
+export default function Layout() {
+  const socialLinks = [
+    {
+      name: 'Facebook',
+      href: 'https://facebook.com/yourpage',
+      icon: <FacebookIcon size={24} color="#1877F2" />
+    },
+    {
+      name: 'Instagram',
+      href: 'https://instagram.com/yourpage',
+      icon: <InstagramIcon size={24} />
+    },
+    {
+      name: 'Twitter',
+      href: 'https://twitter.com/yourpage',
+      icon: <XTwitterIcon size={24} />
+    }
+  ];
+
+  return (
+    <Footer 
+      socialLinks={socialLinks}
+      links={footerLinks}
+      copyright="Your Company"
+      copyrightYear="2025"
+    />
+  );
+}
+```
+
+---
+
+## 9. Violations and Enforcement
+
+### 9.1 What Constitutes a Violation
+
+- Creating custom React components for UI
+- Using custom CSS for component styling
+- Wrapping white-label-ui components unnecessarily
+- Using raw HTML for layout instead of components
+- Importing UI components from other libraries
+- Modifying component behavior with custom wrappers
+
+### 9.2 How to Fix Violations
+
+1. Identify the white-label-ui component that can replace custom code
+2. Check component documentation for available props/features
+3. Request new component in white-label-ui-lib if needed
+4. Refactor to use white-label-ui components only
+
+---
+
+## 10. Package Information
+
+### 10.1 Package Details
+
+- **NPM Package**: `@dejstdm/white-label-ui`
+- **Current Version**: 0.2.2 (check package for latest)
+- **Registry**: GitHub Packages (`@dejstdm` scope)
+- **Package Type**: ES Module (`"type": "module"`)
+
+### 10.2 Installation
+
+```bash
+# Install the package
+npm install @dejstdm/white-label-ui
+
+# Install peer dependencies
+npm install react react-dom swiper
+```
+
+**Note**: If installing from GitHub Packages, ensure your `.npmrc` is configured:
+```
+@dejstdm:registry=https://npm.pkg.github.com
+```
+
+## 11. Resources
+
+- **NPM Package**: `@dejstdm/white-label-ui`
+- **Source Repository**: [white-label-ui-lib](https://github.com/dejstdm/white-label-ui-lib)
+- **Storybook**: Check repository for Storybook URL (components documentation)
+- **Package README**: See package documentation for usage examples
+- **Component Development Rules**: See `packages/components-react/AGENTS.md` in source repo
+- **Architecture Documentation**: See `ARCHITECTURE.md` in source repo for design tokens, theming system, and constraints
+
+---
+
+## Summary
+
+**Remember**: This template project is a **consumer** of `@dejstdm/white-label-ui`, not a developer of it. All UI must come from the package. If you need something that doesn't exist, request it in the source repository, don't build it here.
+
+**Golden Rule**: If you're writing custom React components or CSS for page content, you're doing it wrong. Use white-label-ui components instead.
+
