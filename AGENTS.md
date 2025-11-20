@@ -1,10 +1,173 @@
 # AGENTS.md - White Label UI Template Project Rules
 
+## Quick Reference
+
+**Core Principle**: All pages MUST be composed exclusively using components from `@dejstdm/white-label-ui`. No custom React components, custom styling, or direct HTML structure should be used for page content.
+
+**Available Components ONLY**:
+- NavBar, Footer, Hero, TextSection, ImageSection, ProductSlider, RecipeSlider, FAQ, SocialMediaFeed
+
+**If component doesn't exist**: Refuse with exact message (see CRITICAL RULE below). DO NOT create substitutes.
+
+---
+
+## Do
+
+- Use ONLY components from `@dejstdm/white-label-ui` (see list above)
+- Import from: `import { ComponentName } from '@dejstdm/white-label-ui'`
+- Use TypeScript for all files
+- Check type definitions in `node_modules/@dejstdm/white-label-ui/dist/index.d.ts`
+- Use functional components with const
+- Import CSS: `@dejstdm/white-label-ui/dist/style.css`
+- Import Swiper CSS if using sliders: `swiper/css`, `swiper/css/navigation`, `swiper/css/pagination`
+- Use Font Awesome icons: `fa-brands fa-square-facebook` format
+- Compose pages using only white-label-ui components
+- Use existing components creatively to achieve layouts
+
+## Don't
+
+- DO NOT create custom React components
+- DO NOT use HTML elements as UI components (`<button>`, styled `<div>`, etc.)
+- DO NOT import UI components from other libraries
+- DO NOT create wrapper components
+- DO NOT use existing components as substitutes for non-existent components
+- DO NOT add custom CSS for page styling
+- DO NOT use inline styles
+- DO NOT hardcode colors, fonts, or spacing
+- DO NOT modify or extend existing components
+- DO NOT suggest workarounds using HTML elements
+
+---
+
+## Commands
+
+### File-scoped checks (preferred - faster)
+```bash
+# Type check a single file
+npm run type-check -- --noEmit src/app/page.tsx
+
+# Lint a single file
+npm run lint -- src/app/page.tsx
+
+# Format (if you have prettier)
+# npx prettier --write src/app/page.tsx
+```
+
+### Full project checks
+```bash
+# Type check entire project
+npm run type-check
+
+# Lint entire project
+npm run lint
+
+# Build project
+npm run build
+
+# Development server
+npm run dev
+```
+
+**Note**: Always type-check and lint updated files. Use full project build sparingly.
+
+---
+
+## Safety and Permissions
+
+**Allowed without asking**:
+- Read files, list files
+- Type-check single files
+- Lint single files
+- Run dev server for testing
+
+**Ask first**:
+- Package installs (`npm install`)
+- Git operations (commit, push, etc.)
+- Deleting files
+- Running full build
+- Creating new files outside `src/app/` (pages only)
+
+---
+
+## Project Structure
+
+- **Pages**: `src/app/page.tsx`, `src/app/[routes]/page.tsx`
+- **Layout**: `src/app/layout.tsx` (import CSS here)
+- **Components**: NONE - use only from `@dejstdm/white-label-ui`
+- **Types**: Check `node_modules/@dejstdm/white-label-ui/dist/index.d.ts`
+- **Metadata**: `node_modules/@dejstdm/white-label-ui/dist/meta/*.meta.js` (for Fusion)
+- **Themes**: `node_modules/@dejstdm/white-label-ui/themes/<brand>/dist/theme.css`
+
+---
+
+## Good and Bad Examples
+
+### ✅ Good - Using existing components
+```typescript
+import { Hero, TextSection, ProductSlider } from '@dejstdm/white-label-ui';
+
+export default function HomePage() {
+  return (
+    <>
+      <Hero headline="Welcome" body="<p>Content</p>" />
+      <ProductSlider products={products} />
+      <TextSection headline="About" text="<p>Info</p>" />
+    </>
+  );
+}
+```
+
+### ❌ Bad - Creating custom components
+```typescript
+// DON'T DO THIS
+const Button = ({ label }) => <button>{label}</button>;
+const ProductCard = ({ product }) => <div>...</div>;
+```
+
+### ❌ Bad - Using HTML as components
+```typescript
+// DON'T DO THIS
+<button onClick={...}>Click me</button>
+<div className="custom-card">...</div>
+```
+
+### ❌ Bad - Using existing component as substitute
+```typescript
+// DON'T DO THIS - if user asks for "ProductComparison", don't use TextSection
+<TextSection headline="Product Comparison" text="..." />
+// Instead: REFUSE with the exact message
+```
+
+### ✅ Good - Footer with social icons
+```typescript
+import { Footer } from '@dejstdm/white-label-ui';
+
+const socialLinks = [
+  { name: 'Facebook', href: '...', icon: 'fa-brands fa-square-facebook' }
+];
+<Footer socialLinks={socialLinks} />
+```
+
+---
+
+## PR Checklist
+
+Before submitting code:
+- [ ] Type check passes: `npm run type-check`
+- [ ] Lint passes: `npm run lint`
+- [ ] Only uses components from `@dejstdm/white-label-ui`
+- [ ] No custom React components created
+- [ ] No custom CSS added
+- [ ] No HTML elements used as UI components
+- [ ] All imports from `@dejstdm/white-label-ui` only
+- [ ] Swiper CSS imported if using sliders
+- [ ] Font Awesome CSS imported if using social icons
+
+---
+
 ## Project Overview
 
 This is a **Next.js template project** for creating pages using **ONLY** components from the `@dejstdm/white-label-ui` NPM package. The package is developed in the [white-label-ui-lib](https://github.com/dejstdm/white-label-ui-lib) repository and published to NPM as `@dejstdm/white-label-ui`.
-
-**Core Principle**: All pages MUST be composed exclusively using components from `@dejstdm/white-label-ui`. No custom React components, custom styling, or direct HTML structure should be used for page content.
 
 ---
 
