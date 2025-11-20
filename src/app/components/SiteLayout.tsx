@@ -1,6 +1,6 @@
 "use client";
 
-import { NavBar, Footer, FacebookIcon, XTwitterIcon } from "@dejstdm/white-label-ui";
+import { NavBar, Footer } from "@dejstdm/white-label-ui";
 
 interface SiteLayoutProps {
   children: React.ReactNode;
@@ -25,12 +25,12 @@ export default function SiteLayout({ children }: SiteLayoutProps) {
     {
       name: "Facebook",
       href: "https://facebook.com/lays",
-      icon: <FacebookIcon size={32} color="white" />,
+      icon: "fa-brands fa-square-facebook",
     },
     {
       name: "Twitter",
       href: "https://twitter.com/lays",
-      icon: <XTwitterIcon size={32} color="white" />,
+      icon: "fa-brands fa-square-x-twitter",
     },
   ];
 

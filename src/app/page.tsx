@@ -8,8 +8,6 @@ import {
   RecipeSlider,
   FAQ,
   SocialMediaFeed,
-  FacebookIcon,
-  InstagramIcon,
 } from "@dejstdm/white-label-ui";
 
 export default function Home() {
@@ -201,12 +199,12 @@ export default function Home() {
     {
       name: "Follow us on Facebook",
       href: "https://facebook.com/lays",
-      icon: <FacebookIcon size={20} />,
+      icon: "fa-brands fa-square-facebook",
     },
     {
       name: "Follow us on Instagram",
       href: "https://instagram.com/lays",
-      icon: <InstagramIcon size={20} />,
+      icon: "fa-brands fa-square-instagram",
     },
   ];
 

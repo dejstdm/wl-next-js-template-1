@@ -73,8 +73,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `FAQ` - FAQ accordion with expandable questions/answers
 - `SocialMediaFeed` - Social media feed component
 
-### Social Icons
-- `FacebookIcon`, `InstagramIcon`, `XTwitterIcon` - React SVG icon components
+### Social Icons (Font Awesome)
+Social icons use **Font Awesome** icon classes. See [Usage](#usage) for examples.
 
 ## Usage Example
 

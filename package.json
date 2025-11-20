@@ -10,7 +10,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@dejstdm/white-label-ui": "^0.2.2",
+    "@dejstdm/white-label-ui": "^0.2.4",
+    "@fortawesome/fontawesome-free": "^7.1.0",
     "next": "16.0.3",
     "react": "19.2.0",
     "react-dom": "19.2.0",

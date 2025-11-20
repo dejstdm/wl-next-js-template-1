@@ -31,10 +31,8 @@ This is a **Next.js template project** for creating pages using **ONLY** compone
 - `FAQ` - FAQ accordion with expandable questions/answers
 - `SocialMediaFeed` - Social media feed component
 
-#### Social Icon Components
-- `FacebookIcon` - Facebook social icon as React SVG component
-- `InstagramIcon` - Instagram social icon as React SVG component
-- `XTwitterIcon` - X (Twitter) social icon as React SVG component
+#### Social Icons (Font Awesome)
+Social icons use **Font Awesome** icon classes. Components accept Font Awesome class strings for API integration.
 
 ### 1.2 Component Import Rules
 
@@ -43,8 +41,7 @@ This is a **Next.js template project** for creating pages using **ONLY** compone
 ```typescript
 import { 
   NavBar, Hero, Footer, TextSection, ImageSection, 
-  ProductSlider, RecipeSlider, FAQ, SocialMediaFeed,
-  FacebookIcon, InstagramIcon, XTwitterIcon 
+  ProductSlider, RecipeSlider, FAQ, SocialMediaFeed
 } from '@dejstdm/white-label-ui';
 ```
 
@@ -277,34 +274,47 @@ Components use CSS variables from the theme system. **DO NOT**:
 - **DO NOT** wrap CMS HTML in React components - pass HTML strings directly to props
 - Example: `text="<p>Our Products</p>"` (HtmlString) vs `headline="Our Products"` (PlainText)
 
-### 4.3 Social Icons Usage
+### 4.3 Social Icons Usage (Font Awesome)
 
-**Social icon components are React components** that can be used in `Footer` and `SocialMediaFeed` components:
+**Social icons use Font Awesome icon classes**. Components accept Font Awesome class strings for API integration.
 
-**Available Icon Components**:
-- `FacebookIcon` - Accepts `title`, `color`, `size` props (plus standard SVG props)
-- `InstagramIcon` - Accepts `title`, `color`, `size` props (plus standard SVG props)
-- `XTwitterIcon` - Accepts `title`, `color`, `size` props (plus standard SVG props)
+**Font Awesome Icons**:
+- **Facebook**: `fa-brands fa-square-facebook`
+- **Instagram**: `fa-brands fa-square-instagram`
+- **Twitter/X**: `fa-brands fa-square-x-twitter`
+
+**Font Awesome CSS Requirement**:
+
+**Required:** Import Font Awesome CSS in your application root (e.g., `app/layout.tsx`):
+
+```bash
+npm install @fortawesome/fontawesome-free
+```
+
+```typescript
+// In app/layout.tsx
+import '@fortawesome/fontawesome-free/css/all.min.css';
+```
 
 **Usage in Footer**:
 ```typescript
-import { Footer, FacebookIcon, InstagramIcon, XTwitterIcon } from '@dejstdm/white-label-ui';
+import { Footer } from '@dejstdm/white-label-ui';
 
 const socialLinks = [
   {
     name: 'Facebook',
     href: 'https://facebook.com/yourpage',
-    icon: <FacebookIcon size={24} color="#1877F2" />
+    icon: 'fa-brands fa-square-facebook'
   },
   {
     name: 'Instagram',
     href: 'https://instagram.com/yourpage',
-    icon: <InstagramIcon size={24} />
+    icon: 'fa-brands fa-square-instagram'
   },
   {
     name: 'Twitter',
     href: 'https://twitter.com/yourpage',
-    icon: <XTwitterIcon size={24} />
+    icon: 'fa-brands fa-square-x-twitter'
   }
 ];
 
@@ -313,29 +323,27 @@ const socialLinks = [
 
 **Usage in SocialMediaFeed**:
 ```typescript
-import { SocialMediaFeed, FacebookIcon, InstagramIcon } from '@dejstdm/white-label-ui';
+import { SocialMediaFeed } from '@dejstdm/white-label-ui';
 
 const socialLinks = [
   {
     name: 'Follow us on Facebook',
     href: 'https://facebook.com/yourpage',
-    icon: <FacebookIcon size={20} />
+    icon: 'fa-brands fa-square-facebook'
   },
   {
     name: 'Follow us on Instagram',
     href: 'https://instagram.com/yourpage',
-    icon: <InstagramIcon size={20} />
+    icon: 'fa-brands fa-square-instagram'
   }
 ];
 
 <SocialMediaFeed socialLinks={socialLinks} />
 ```
 
-**Icon Props**:
-- `size?: number` - Icon size in pixels (default varies by component)
-- `color?: string` - Icon color (CSS color value, defaults to current text color)
-- `title?: string` - Accessibility title for the icon
-- All standard SVG props are also supported
+**Icon Styling**:
+- Icon styling (size, color) is controlled by theme CSS, not component props
+- Icons are **required** - no auto-detection, no fallbacks
 
 ### 4.4 Type Definitions and Type Safety
 
@@ -509,24 +517,24 @@ export default function ProductsPage() {
 ### 8.3 Footer with Social Icons
 
 ```typescript
-import { Footer, FacebookIcon, InstagramIcon, XTwitterIcon } from '@dejstdm/white-label-ui';
+import { Footer } from '@dejstdm/white-label-ui';
 
 export default function Layout() {
   const socialLinks = [
     {
       name: 'Facebook',
       href: 'https://facebook.com/yourpage',
-      icon: <FacebookIcon size={24} color="#1877F2" />
+      icon: 'fa-brands fa-square-facebook'
     },
     {
       name: 'Instagram',
       href: 'https://instagram.com/yourpage',
-      icon: <InstagramIcon size={24} />
+      icon: 'fa-brands fa-square-instagram'
     },
     {
       name: 'Twitter',
       href: 'https://twitter.com/yourpage',
-      icon: <XTwitterIcon size={24} />
+      icon: 'fa-brands fa-square-x-twitter'
     }
   ];
 

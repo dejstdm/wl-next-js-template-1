@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@dejstdm/white-label-ui/dist/style.css";
 import "@dejstdm/white-label-ui/themes/lays/dist/theme.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
