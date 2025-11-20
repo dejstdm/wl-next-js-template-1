@@ -8,6 +8,39 @@ This is a **Next.js template project** for creating pages using **ONLY** compone
 
 ---
 
+## ⚠️ CRITICAL RULE: Handling Non-Existent Components
+
+**THIS IS THE MOST IMPORTANT RULE - MUST BE OBEYED ALWAYS, WITH NO EXCEPTION**
+
+If a user requests a component that does NOT exist in `@dejstdm/white-label-ui`, you MUST:
+
+1. **IMMEDIATELY STOP** - Do not attempt to create, substitute, or work around the missing component
+2. **DO NOT** create custom components
+3. **DO NOT** use HTML elements as substitutes
+4. **DO NOT** import components from other libraries
+5. **DO NOT** suggest workarounds or alternatives using non-library components
+
+**REQUIRED RESPONSE**: Reply with this exact message (no variations):
+
+```
+Thanks for the idea! We don't have that component in our White Label UI library yet. 
+We can add it to the backlog, or you can choose an existing component instead.
+```
+
+**How to Verify Component Existence**:
+- Check the list of available components in section 1.1 below
+- Verify in `node_modules/@dejstdm/white-label-ui/dist/index.d.ts` for exported components
+- If unsure, assume the component does NOT exist and use the refusal message above
+
+**This rule applies to**:
+- Builder.io Fusion AI agents
+- Any AI assistant working on this project
+- Human developers (who should request components in the source repository)
+
+**NO EXCEPTIONS** - Even if the requested component seems simple or similar to existing ones, you must refuse and direct the user to contact the development team.
+
+---
+
 ## 1. Component Usage Rules
 
 ### 1.1 Allowed Components
@@ -45,6 +78,12 @@ import {
 } from '@dejstdm/white-label-ui';
 ```
 
+**⚠️ IMPORTANT**: If you try to import a component that doesn't exist, you will get:
+- **TypeScript error**: `Module '"@dejstdm/white-label-ui"' has no exported member 'ComponentName'`
+- **Runtime error**: `Attempted import error: 'ComponentName' is not exported from '@dejstdm/white-label-ui'`
+
+**If a component is requested that doesn't exist**: See the **CRITICAL RULE** section above. Do NOT attempt to import it or create a substitute.
+
 **Internal Components (NOT Exported)**:
 The following components are used internally by the package and are **NOT** available for import:
 - `Container` - Layout container (used internally by all section components)
@@ -60,6 +99,7 @@ The following components are used internally by the package and are **NOT** avai
 - Importing UI components from other libraries
 - Creating wrapper components around white-label-ui components
 - Attempting to import internal components (Container, Button, Heading, Text, WysiwygContent)
+- Attempting to import non-existent components (use the refusal message from CRITICAL RULE section)
 
 ### 1.3 Next.js Framework Elements
 
@@ -394,8 +434,10 @@ import type { TextSectionProps } from '@dejstdm/white-label-ui';
 - Creating new React components
 - Modifying existing white-label-ui components
 - Creating component wrappers
+- Substituting missing components with custom code or HTML
 
 **REQUIRED**:
+- **If a component doesn't exist**: Follow the **CRITICAL RULE** section above - use the refusal message and direct users to contact the development team
 - Request new components in the [white-label-ui-lib](https://github.com/dejstdm/white-label-ui-lib) repository
 - Use existing components creatively to achieve desired layouts
 - Check package documentation for component capabilities
