@@ -75,6 +75,7 @@ const faqItems = [
 export default function Home() {
   return (
     <>
+      <Hero backgroundImage="https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F695da37b6060415ca397e7c98dc7cda4?format=webp&width=800" />
       <ProductSlider products={products} />
       <FAQ
         headline="Frequently Asked Questions"
