@@ -177,6 +177,7 @@ export default function Home() {
       <SocialMediaFeed
         headline="Follow Us"
         items={socialMediaItems}
+        socialLinks={socialMediaLinks}
       />
     </>
   );
