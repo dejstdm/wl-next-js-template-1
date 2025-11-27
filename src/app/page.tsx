@@ -84,30 +84,53 @@ const socialMediaItems = [
     alt: "Wasabi-Mayo Salmon Fruit Dog",
     url: "https://www.instagram.com/explore/tags/layschips",
     platform: "instagram",
+    platformIcon: "fa-brands fa-square-instagram",
   },
   {
     image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F57fc2eb1979d4fd0afcb4238371d0404?format=webp&width=800",
     alt: "Grandma's Creamy Ham Casserole",
     url: "https://www.instagram.com/explore/tags/layschips",
     platform: "instagram",
+    platformIcon: "fa-brands fa-square-instagram",
   },
   {
     image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2Fed6f4cb0550f473b8cb242f80b47722d?format=webp&width=800",
     alt: "Basic Funeral Potatoes",
     url: "https://www.instagram.com/explore/tags/layschips",
     platform: "instagram",
+    platformIcon: "fa-brands fa-square-instagram",
   },
   {
     image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F2da5bab176ea48a48d21d0cd9d3b3587?format=webp&width=800",
     alt: "Indian Chaat-Inspired Potato Chip Salad",
     url: "https://www.instagram.com/explore/tags/layschips",
     platform: "instagram",
+    platformIcon: "fa-brands fa-square-instagram",
   },
   {
     image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F08343b05d40945bea476b856e4aa3dba?format=webp&width=800",
     alt: "Creamy Potato Casserole",
     url: "https://www.instagram.com/explore/tags/layschips",
     platform: "instagram",
+    platformIcon: "fa-brands fa-square-instagram",
+  },
+];
+
+const socialMediaLinks = [
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/lays",
+    icon: "fa-brands fa-square-instagram",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/lays",
+    icon: "fa-brands fa-square-facebook",
+  },
+  {
+    name: "Twitter",
+    href: "https://www.twitter.com/lays",
+    icon: "fa-brands fa-square-x-twitter",
   },
 ];
 
