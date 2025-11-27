@@ -151,6 +151,10 @@ export default function Home() {
         headline="Featured Recipes"
         recipes={recipes}
       />
+      <SocialMediaFeed
+        headline="Follow Us"
+        items={socialMediaItems}
+      />
     </>
   );
 }
