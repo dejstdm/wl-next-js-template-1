@@ -45,6 +45,39 @@ const products = [
   },
 ];
 
+const recipes = [
+  {
+    id: "1",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F47b2d6f20dfc478bae57d074ebc5c6fd?format=webp&width=800",
+    imageAlt: "Wasabi-Mayo Salmon Fruit Dog",
+    href: "https://www.allrecipes.com/recipe/",
+  },
+  {
+    id: "2",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F57fc2eb1979d4fd0afcb4238371d0404?format=webp&width=800",
+    imageAlt: "Grandma's Creamy Ham Casserole",
+    href: "https://www.allrecipes.com/recipe/",
+  },
+  {
+    id: "3",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2Fed6f4cb0550f473b8cb242f80b47722d?format=webp&width=800",
+    imageAlt: "Basic Funeral Potatoes",
+    href: "https://www.allrecipes.com/recipe/",
+  },
+  {
+    id: "4",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F2da5bab176ea48a48d21d0cd9d3b3587?format=webp&width=800",
+    imageAlt: "Indian Chaat-Inspired Potato Chip Salad",
+    href: "https://www.allrecipes.com/recipe/",
+  },
+  {
+    id: "5",
+    image: "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2F08343b05d40945bea476b856e4aa3dba?format=webp&width=800",
+    imageAlt: "Creamy Potato Casserole",
+    href: "https://www.allrecipes.com/recipe/",
+  },
+];
+
 const faqItems = [
   {
     question: "What makes Lay's chips special?",
