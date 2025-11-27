@@ -1,4 +1,4 @@
-import { Hero, TextSection, ProductSlider, FAQ } from "@dejstdm/white-label-ui";
+import { ProductSlider, FAQ } from "@dejstdm/white-label-ui";
 
 const products = [
   {
