@@ -85,12 +85,18 @@ export default function Home() {
         headline="Our Products"
         text="<p>Lay's offers a diverse range of delicious snacks crafted from the finest potatoes. Whether you're looking for a classic taste or an adventurous flavor, our collection has something for everyone. Each bite is a promise of quality, taste, and the perfect crunch.</p>"
       />
-      <ProductSlider products={products} />
+      <ProductSlider
+        headline="Our Products"
+        products={products}
+      />
       <TextSection
         headline="Why Choose Lay's?"
         text="<p>For over 75 years, Lay's has been a trusted name in snacking. We're committed to using quality ingredients and innovative flavors to create snacks that bring joy to families around the world. Our dedication to taste, quality, and sustainability sets us apart in the snack industry.</p>"
       />
-      <FAQ items={faqItems} headline="Frequently Asked Questions" />
+      <FAQ
+        headline="Frequently Asked Questions"
+        items={faqItems}
+      />
     </>
   );
 }
