@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "Discover the crispy taste of Lay's premium potato chips and snacks. Explore our variety of delicious flavors.",
 };
 
-const navBarMenuItems = [
+const navBarItems = [
   { label: "Home", href: "/" },
   { label: "Products", href: "#products" },
   { label: "About", href: "#about" },
@@ -46,6 +46,8 @@ const socialLinks = [
   },
 ];
 
+const logoSrc = "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2Ff90543d3bd8946ac8d5992589ed55cf6?format=webp&width=800";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -55,13 +57,15 @@ export default function RootLayout({
     <html lang="en" data-theme="lays">
       <body>
         <NavBar
-          logo="https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2Ff90543d3bd8946ac8d5992589ed55cf6?format=webp&width=800"
-          menuItems={navBarMenuItems}
+          logoSrc={logoSrc}
+          logoAlt="Lay's Logo"
+          items={navBarItems}
           sticky={true}
         />
         {children}
         <Footer
-          logo="https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2Ff90543d3bd8946ac8d5992589ed55cf6?format=webp&width=800"
+          logoSrc={logoSrc}
+          logoAlt="Lay's Logo"
           links={footerLinks}
           socialLinks={socialLinks}
           copyright="© 2025 Lay's. All rights reserved."
