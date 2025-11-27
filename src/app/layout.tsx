@@ -28,6 +28,24 @@ const footerLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/lays",
+    icon: "fa-brands fa-square-facebook",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/lays",
+    icon: "fa-brands fa-square-instagram",
+  },
+  {
+    name: "Twitter",
+    href: "https://www.twitter.com/lays",
+    icon: "fa-brands fa-square-x-twitter",
+  },
+];
+
 const logoSrc = "https://cdn.builder.io/api/v1/image/assets%2F9cbbb97b27784086a538ac468ac265d8%2Ff90543d3bd8946ac8d5992589ed55cf6?format=webp&width=800";
 
 export default function RootLayout({
