@@ -114,6 +114,10 @@ export default function Home() {
         headline="Frequently Asked Questions"
         items={faqItems}
       />
+      <RecipeSlider
+        headline="Featured Recipes"
+        recipes={recipes}
+      />
     </>
   );
 }
