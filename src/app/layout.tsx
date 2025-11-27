@@ -67,6 +67,7 @@ export default function RootLayout({
           logoSrc={logoSrc}
           logoAlt="Lay's Logo"
           links={footerLinks}
+          socialLinks={socialLinks}
           copyright="© 2025 Lay's. All rights reserved."
           copyrightYear="2025"
         />
