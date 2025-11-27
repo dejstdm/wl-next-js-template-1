@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Footer social icons - white color */
+/* Footer social icons - Lays red color */
 .footer__social-link i {
-  color: white;
+  color: #DC241F;
 }
