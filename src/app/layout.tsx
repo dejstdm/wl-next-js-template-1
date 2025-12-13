@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+
 import "@dejstdm/white-label-ui/dist/style.css";
 import "@dejstdm/white-label-ui/themes/lays/dist/theme.css";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+
 import "./globals.css";
 import { NavBar, Footer } from "@dejstdm/white-label-ui";
 import type { NavBarItem, FooterLink, FooterSocialLink } from "@dejstdm/white-label-ui";
