@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import "@dejstdm/white-label-ui/dist/style.css";
+import "@dejstdm/white-label-ui/dist/white-label-ui.css";
 import "@dejstdm/white-label-ui/themes/lays/dist/theme.css";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -18,9 +18,7 @@ export const metadata: Metadata = {
 
 const navItems: NavBarItem[] = [
   { label: "Our Products", href: "/products" },
-  { label: "Our Commitments", href: "/commitments" },
-  { label: "Quality", href: "/quality" },
-  { label: "Contact Us", href: "/contact" },
+  { label: "Products Zig-Zag", href: "/ptoducts-zig-zag" },
 ];
 
 const footerLinks: FooterLink[] = [
