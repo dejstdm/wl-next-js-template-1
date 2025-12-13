@@ -56,9 +56,17 @@ const rule = {
       ImportDeclaration(node) {
         const source = node.source.value;
         
+        // Skip type-only imports (import type { ... })
+        const isTypeImport = node.importKind === 'type';
+        
         // Check imports from white-label-ui package
-        if (source === '@dejstdm/white-label-ui') {
+        if (source === '@dejstdm/white-label-ui' && !isTypeImport) {
           node.specifiers.forEach(spec => {
+            // Skip type-only specifiers (import { type X } or import type { X })
+            if (spec.importKind === 'type') {
+              return;
+            }
+            
             let componentName;
             
             if (spec.type === 'ImportSpecifier') {
