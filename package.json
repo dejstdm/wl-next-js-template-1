@@ -10,11 +10,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@dejstdm/white-label-ui": "^0.2.19", 
+    "@dejstdm/white-label-ui": "^0.2.17",
     "@fortawesome/fontawesome-free": "^7.1.0",
     "next": "16.0.10",
-    "react": "19.2.2",
-    "react-dom": "19.2.2",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
     "swiper": "^12.0.3"
   },
   "devDependencies": {
