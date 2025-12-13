@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "@dejstdm/white-label-ui/dist/style.css";
+import "@dejstdm/white-label-ui/dist/white-label-ui.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
