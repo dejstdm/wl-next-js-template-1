@@ -5,6 +5,8 @@ const ALLOWED_COMPONENTS = [
   'TextSection',
   'ImageSection',
   'ProductSlider',
+  'ProductOverview',
+  'ProductDetail',
   'RecipeSlider',
   'FAQ',
   'SocialMediaFeed'
