@@ -47,14 +47,20 @@ npm run type-check
 
 ## Component Props Reference
 
-Always verify in the actual type files, but common components include:
+Always verify in the actual type files. All available components from `@dejstdm/white-label-ui`:
 
 - **NavBar**: Uses `items` (array of `NavBarItem`), `logoSrc`, `logoAlt`, `sticky`
 - **Footer**: Uses `logoSrc`, `logoAlt`, `socialLinks` (array of `FooterSocialLink`), `links` (array of `FooterLink`), `copyright`, `copyrightYear`
 - **Hero**: Uses `headline` (PlainText), `body` (HtmlString), `backgroundImage`, `buttonLabel`, `buttonHref`
 - **TextSection**: Uses `headline` (PlainText), `text` (HtmlString)
+- **ImageSection**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ImageSection.d.ts`
+- **ProductSlider**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ProductSlider.d.ts`
 - **ProductOverview**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ProductOverview.d.ts`
 - **ProductDetail**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ProductDetail.d.ts`
+- **RecipeSlider**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/RecipeSlider.d.ts`
+- **RecipeOverview**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/RecipeOverview.d.ts`
+- **FAQ**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/FAQ.d.ts`
+- **SocialMediaFeed**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/SocialMediaFeed.d.ts`
 
 **Always check the `.d.ts` files to confirm before using.**
 

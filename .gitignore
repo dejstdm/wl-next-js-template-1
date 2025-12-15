@@ -41,3 +41,8 @@ yarn-error.log*
 next-env.d.ts
 
 FUSION_TEST_PROMPTS.md
+
+# New documentation version (doc-v1/) - structured format with SPECIFICATION.md as main reference
+# This version uses a more maintainable format than the current verbose AGENTS.md/CLAUDE.md structure
+# doc-v1/ contains: SPECIFICATION.md (main technical spec), AGENTS.md (pointer to spec), README.md, CLAUDE.md
+doc-v1/

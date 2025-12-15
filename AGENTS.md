@@ -7,7 +7,7 @@
 For project setup and theming overview, see [`README.md`](./README.md).
 
 **Available Components ONLY**:
-- NavBar, Footer, Hero, TextSection, ImageSection, ProductSlider, ProductOverview, ProductDetail, RecipeSlider, FAQ, SocialMediaFeed
+- NavBar, Footer, Hero, TextSection, ImageSection, ProductSlider, ProductOverview, ProductDetail, RecipeSlider, RecipeOverview, FAQ, SocialMediaFeed
 
 **If component doesn't exist**: Refuse with exact message (see CRITICAL RULE below). DO NOT create substitutes.
 
@@ -232,6 +232,7 @@ We can add it to the backlog, or you can choose an existing component instead.
 
 #### Feature Components
 - `RecipeSlider` - Recipe carousel/slider with navigation and pagination
+- `RecipeOverview` - Recipe overview/listing component
 - `FAQ` - FAQ accordion with expandable questions/answers
 - `SocialMediaFeed` - Social media feed component
 
@@ -245,7 +246,7 @@ Social icons use **Font Awesome** icon classes. Components accept Font Awesome c
 ```typescript
 import { 
   NavBar, Hero, Footer, TextSection, ImageSection, 
-  ProductSlider, ProductOverview, ProductDetail, RecipeSlider, FAQ, SocialMediaFeed
+  ProductSlider, ProductOverview, ProductDetail, RecipeSlider, RecipeOverview, FAQ, SocialMediaFeed
 } from '@dejstdm/white-label-ui';
 ```
 
@@ -322,7 +323,7 @@ Pages should be composed using white-label-ui components in a logical order:
 1. `NavBar` (if not in layout)
 2. `Hero` (optional, for landing pages)
 3. `TextSection` / `ImageSection` (content sections)
-4. `ProductSlider` / `ProductOverview` / `ProductDetail` / `RecipeSlider` (product/feature sections)
+4. `ProductSlider` / `ProductOverview` / `ProductDetail` / `RecipeSlider` / `RecipeOverview` (product/feature sections)
 5. `FAQ` (if needed)
 6. `SocialMediaFeed` (if needed)
 7. `Footer` (if not in layout)
@@ -583,7 +584,7 @@ const socialLinks = [
 
 - **Utility/value types**: `HeadingLevel`, `HeadingVariant`, `TextSize`, `ButtonVariant`, `ButtonSize`, `CollapseMode`, `PlainText`, `HtmlString`, `ProductDetailVariant`
 - **Data structure types**: `NavBarItem`, `FooterLink`, `FooterSocialLink`, `ImageItem`, `ProductItem`, `RecipeItem`, `FAQItem`, `SocialMediaFeedItem`, `SocialMediaFeedSocialLink`, `AccordionTriggerRender`, `AccordionItemData`
-- **Component props types**: `NavBarProps`, `FooterProps`, `HeroProps`, `TextSectionProps`, `ImageSectionProps`, `ProductSliderProps`, `ProductOverviewProps`, `ProductDetailProps`, `RecipeSliderProps`, `FAQProps`, `SocialMediaFeedProps`
+- **Component props types**: `NavBarProps`, `FooterProps`, `HeroProps`, `TextSectionProps`, `ImageSectionProps`, `ProductSliderProps`, `ProductOverviewProps`, `ProductDetailProps`, `RecipeSliderProps`, `RecipeOverviewProps`, `FAQProps`, `SocialMediaFeedProps`
 
 **Common prop name patterns (quick reference; always verify in `.d.ts`)**:
 - `NavBar`: `items` (not `menuItems`), `logoSrc` (not `logo`), `logoAlt`, `sticky`

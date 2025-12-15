@@ -8,6 +8,7 @@ const ALLOWED_COMPONENTS = [
   'ProductOverview',
   'ProductDetail',
   'RecipeSlider',
+  'RecipeOverview',
   'FAQ',
   'SocialMediaFeed'
 ];
