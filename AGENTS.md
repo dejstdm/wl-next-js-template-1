@@ -4,10 +4,14 @@
 
 **Core Principle**: All pages MUST be composed exclusively using components from `@dejstdm/white-label-ui`. No custom React components, custom styling, or direct HTML structure should be used for page content.
 
+For project setup and theming overview, see [`README.md`](./README.md).
+
 **Available Components ONLY**:
-- NavBar, Footer, Hero, TextSection, ImageSection, ProductSlider, RecipeSlider, FAQ, SocialMediaFeed
+- NavBar, Footer, Hero, TextSection, ImageSection, ProductSlider, ProductOverview, ProductDetail, RecipeSlider, FAQ, SocialMediaFeed
 
 **If component doesn't exist**: Refuse with exact message (see CRITICAL RULE below). DO NOT create substitutes.
+
+**Enforcement**: `npm run lint` runs a custom ESLint rule (`white-label-ui/only-white-label-components`) that blocks non-allowed UI components and invalid imports.
 
 ---
 
@@ -19,7 +23,7 @@
 - Check type definitions in `node_modules/@dejstdm/white-label-ui/dist/index.d.ts`
 - Use functional components with const
 - Import CSS: `@dejstdm/white-label-ui/dist/style.css`
-- Import Swiper CSS if using sliders: `swiper/css`, `swiper/css/navigation`, `swiper/css/pagination`
+- Import Swiper CSS if using sliders: `swiper/css`, `swiper/css/navigation` (and `swiper/css/pagination` for `RecipeSlider`)
 - Use Font Awesome icons: `fa-brands fa-square-facebook` format
 - Compose pages using only white-label-ui components
 - Use existing components creatively to achieve layouts
@@ -27,9 +31,9 @@
 ## Don't
 
 - DO NOT create custom React components
-- DO NOT use HTML elements as UI components (`<button>`, styled `<div>`, etc.)
+- DO NOT use HTML elements as UI components (`<button>`, `<div>`, `<section>`, etc.). Only the basic document tags listed in section 1.3 are allowed.
 - DO NOT import UI components from other libraries
-- DO NOT create wrapper components
+- DO NOT create wrapper components (exception: `RootLayout` / `SiteLayout` are allowed by ESLint for layout-only composition)
 - DO NOT use existing components as substitutes for non-existent components
 - DO NOT add custom CSS for page styling
 - DO NOT use inline styles
@@ -221,8 +225,12 @@ We can add it to the backlog, or you can choose an existing component instead.
 - `TextSection` - Text content section with headline and WYSIWYG content
 - `ImageSection` - Image gallery section with optional slider/carousel
 
-#### Feature Components
+#### Product Components
 - `ProductSlider` - Product carousel/slider with navigation controls
+- `ProductOverview` - Product overview/listing component
+- `ProductDetail` - Product detail component
+
+#### Feature Components
 - `RecipeSlider` - Recipe carousel/slider with navigation and pagination
 - `FAQ` - FAQ accordion with expandable questions/answers
 - `SocialMediaFeed` - Social media feed component
@@ -237,7 +245,7 @@ Social icons use **Font Awesome** icon classes. Components accept Font Awesome c
 ```typescript
 import { 
   NavBar, Hero, Footer, TextSection, ImageSection, 
-  ProductSlider, RecipeSlider, FAQ, SocialMediaFeed
+  ProductSlider, ProductOverview, ProductDetail, RecipeSlider, FAQ, SocialMediaFeed
 } from '@dejstdm/white-label-ui';
 ```
 
@@ -248,19 +256,15 @@ import {
 **If a component is requested that doesn't exist**: See the **CRITICAL RULE** section above. Do NOT attempt to import it or create a substitute.
 
 **Internal Components (NOT Exported)**:
-The following components are used internally by the package and are **NOT** available for import:
-- `Container` - Layout container (used internally by all section components)
-- `Button` - Button component (used internally by Hero, sliders, and social feed)
-- `Heading` - Typography heading (used internally by Hero and sections)
-- `Text` - Typography text component (internal primitive)
-- `WysiwygContent` - WYSIWYG content renderer (used internally for CMS content)
-- `SectionHeader` - Section header component (used internally by section components)
+The library contains internal primitives (e.g., `Container`, `Button`, `Heading`, `Text`, `WysiwygContent`) that are not part of the public API. Do not import anything other than the components listed in section 1.1.
+
+If you see `Module '"@dejstdm/white-label-ui"' has no exported member 'X'`, the symbol is internal/not exported—follow the **CRITICAL RULE** and choose an exported component instead.
 
 **FORBIDDEN**:
 - Creating custom React components for page content
-- Using raw HTML elements for layout (div, section, article, etc.) - except where required by Next.js App Router structure
+- Using raw HTML elements for layout/UI, except the basic document tags listed in section 1.3
 - Importing UI components from other libraries
-- Creating wrapper components around white-label-ui components
+- Creating wrapper components around white-label-ui components (exception: `RootLayout` / `SiteLayout` layout-only wrappers allowed by ESLint)
 - Attempting to import internal components (Container, Button, Heading, Text, WysiwygContent)
 - Attempting to import non-existent components (use the refusal message from CRITICAL RULE section)
 
@@ -269,9 +273,13 @@ The following components are used internally by the package and are **NOT** avai
 **ALLOWED** Next.js-specific elements:
 - `next/image` - For optimized images (when not using ImageSection)
 - `next/link` - For Next.js routing (components may use this internally)
+- `next/script` - For loading external scripts (rare; prefer library behavior)
+- `next/head` - Legacy/head management (App Router users should prefer metadata exports)
 - Next.js App Router structure (`layout.tsx`, `page.tsx`, route groups, etc.)
 - Next.js metadata exports
 - Next.js font optimization (`next/font`)
+
+**ALLOWED** basic document HTML elements (for framework structure only, not UI/layout): `html`, `body`, `head`, `title`, `meta`, `link`, `script`
 
 **FORBIDDEN**:
 - Using Next.js Image/Link to create custom UI components
@@ -280,14 +288,16 @@ The following components are used internally by the package and are **NOT** avai
 ### 1.4 Peer Dependencies
 
 **REQUIRED** peer dependencies (install separately):
-- `react` (>=18)
-- `react-dom` (>=18)
+- `react` (^19.2.3)
+- `react-dom` (^19.2.3)
 - `swiper` (^12.0.0) - Required for slider components (`ProductSlider`, `RecipeSlider`, `ImageSection`)
 
 **Installation**:
 ```bash
-npm install react react-dom swiper
+npm install react@^19.2.3 react-dom@^19.2.3 swiper@^12.0.0
 ```
+
+**Note**: This template already declares these packages in `package.json`. The versions above reflect the library’s peer dependency requirements.
 
 ### 1.5 Swiper CSS (Required for Slider Components)
 
@@ -296,8 +306,8 @@ If using slider components (`ProductSlider`, `RecipeSlider`, `ImageSection`), **
 ```typescript
 // In layout.tsx or page.tsx
 import 'swiper/css';
-import 'swiper/css/navigation';  // For navigation arrows
-import 'swiper/css/pagination';  // For pagination dots (used in RecipeSlider)
+import 'swiper/css/navigation';  // Required by: ProductSlider, RecipeSlider, ImageSection
+import 'swiper/css/pagination';  // Required by: RecipeSlider
 ```
 
 ---
@@ -312,7 +322,7 @@ Pages should be composed using white-label-ui components in a logical order:
 1. `NavBar` (if not in layout)
 2. `Hero` (optional, for landing pages)
 3. `TextSection` / `ImageSection` (content sections)
-4. `ProductSlider` / `RecipeSlider` (feature sections)
+4. `ProductSlider` / `ProductOverview` / `ProductDetail` / `RecipeSlider` (product/feature sections)
 5. `FAQ` (if needed)
 6. `SocialMediaFeed` (if needed)
 7. `Footer` (if not in layout)
@@ -430,7 +440,9 @@ export default function HomePage() {
 **Theme Behavior**:
 - Default theme works immediately after importing `dist/style.css` - no `data-theme` attribute needed
 - Custom themes require both CSS import AND `data-theme` attribute on `<html>` element
-- Themes use CSS variables scoped to `[data-theme="brand-x"]` selectors
+- `data-theme` values match theme folder names (e.g. `data-theme="7up"`, `data-theme="lays"`)
+- Themes use CSS variables scoped to `[data-theme="<theme>"]` selectors
+To see all available themes after install, check `node_modules/@dejstdm/white-label-ui/themes/`.
 
 **FORBIDDEN**:
 - Custom CSS files for page styling (except minimal global resets if absolutely necessary)
@@ -468,6 +480,12 @@ Components use CSS variables from the theme system. **DO NOT**:
 - Components accept CMS/content data through props
 - All components are standalone and manage their own internal layout (each includes `Container` internally)
 
+**Common prop patterns (verify in `.d.ts`)**:
+- Most sections use `headline?: PlainText`, `subheadline?: HtmlString`, `headlineLevel?: HeadingLevel`
+- `NavBar` uses `items?: NavBarItem[]` and `logoSrc?: string`
+- `Footer` uses `links?: FooterLink[]`, `socialLinks?: FooterSocialLink[]`, and `logoSrc?: string`
+- `ProductDetail` differs: `headline?: HtmlString` and `image` is required (plus `variant`)
+
 ### 4.2 CMS Content Handling
 
 **Important**: Components accept HTML strings from CMS rich text editors for specific props:
@@ -488,14 +506,12 @@ Components use CSS variables from the theme system. **DO NOT**:
 
 **Font Awesome CSS Requirement**:
 
-**Required:** Import Font Awesome CSS in your application root (e.g., `app/layout.tsx`):
+**Required:** Import Font Awesome CSS in your application root (e.g., `src/app/layout.tsx`):
 
-```bash
-npm install @fortawesome/fontawesome-free
-```
+`@dejstdm/white-label-ui` includes `@fortawesome/fontawesome-free` as a dependency, so it is installed automatically when you install the library.
 
 ```typescript
-// In app/layout.tsx
+// In src/app/layout.tsx
 import '@fortawesome/fontawesome-free/css/all.min.css';
 ```
 
@@ -553,6 +569,7 @@ const socialLinks = [
 **REQUIRED**: Always check and respect type definitions from `@dejstdm/white-label-ui`:
 
 - **Check type definitions** before using components - inspect `node_modules/@dejstdm/white-label-ui/dist/index.d.ts`
+- **Prefer importing exported types** so your data and prop objects match the public API.
 - **Respect prop types** - use props exactly as defined in the type definitions
 - **Understand type distinctions**:
   - `PlainText` - Plain text only, no HTML (e.g., `headline`, `buttonLabel`)
@@ -561,6 +578,17 @@ const socialLinks = [
 - **Note**: Both `PlainText` and `HtmlString` are type aliases for `string`, so TypeScript cannot distinguish them at compile time. You must manually ensure:
   - `PlainText` props receive plain text only
   - `HtmlString` props can receive HTML strings
+
+**Exported types (from `index.d.ts`)**:
+
+- **Utility/value types**: `HeadingLevel`, `HeadingVariant`, `TextSize`, `ButtonVariant`, `ButtonSize`, `CollapseMode`, `PlainText`, `HtmlString`, `ProductDetailVariant`
+- **Data structure types**: `NavBarItem`, `FooterLink`, `FooterSocialLink`, `ImageItem`, `ProductItem`, `RecipeItem`, `FAQItem`, `SocialMediaFeedItem`, `SocialMediaFeedSocialLink`, `AccordionTriggerRender`, `AccordionItemData`
+- **Component props types**: `NavBarProps`, `FooterProps`, `HeroProps`, `TextSectionProps`, `ImageSectionProps`, `ProductSliderProps`, `ProductOverviewProps`, `ProductDetailProps`, `RecipeSliderProps`, `FAQProps`, `SocialMediaFeedProps`
+
+**Common prop name patterns (quick reference; always verify in `.d.ts`)**:
+- `NavBar`: `items` (not `menuItems`), `logoSrc` (not `logo`), `logoAlt`, `sticky`
+- `Footer`: `logoSrc`, `logoAlt`, `socialLinks`, `links`, `copyright`, `copyrightYear`
+- `Hero`: `headline` (PlainText), `subheadline`/`body` (HtmlString), `backgroundImage`, `buttonLabel`, `buttonHref`
 
 **Example - Checking Types**:
 ```typescript
@@ -781,7 +809,7 @@ export default function Layout() {
 ### 10.1 Package Details
 
 - **NPM Package**: `@dejstdm/white-label-ui`
-- **Current Version**: 0.2.2 (check package for latest)
+- **Current Version**: Check `package.json` for the version used by this template
 - **Registry**: GitHub Packages (`@dejstdm` scope)
 - **Package Type**: ES Module (`"type": "module"`)
 
@@ -798,7 +826,10 @@ npm install react react-dom swiper
 **Note**: If installing from GitHub Packages, ensure your `.npmrc` is configured:
 ```
 @dejstdm:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=${NPM_TOKEN}
 ```
+
+Set `NPM_TOKEN` to a GitHub Personal Access Token with `read:packages`, or use a user-level `~/.npmrc` token for `//npm.pkg.github.com/`.
 
 ## 11. Resources
 
@@ -816,4 +847,3 @@ npm install react react-dom swiper
 **Remember**: This template project is a **consumer** of `@dejstdm/white-label-ui`, not a developer of it. All UI must come from the package. If you need something that doesn't exist, request it in the source repository, don't build it here.
 
 **Golden Rule**: If you're writing custom React components or CSS for page content, you're doing it wrong. Use white-label-ui components instead.
-

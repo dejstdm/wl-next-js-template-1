@@ -14,7 +14,7 @@ const ALLOWED_COMPONENTS = [
 
 // Next.js built-ins that are allowed
 const ALLOWED_NEXT_JS = ['Image', 'Link', 'Script', 'Head'];
-const ALLOWED_HTML_ELEMENTS = ['html', 'body', 'head', 'title', 'meta', 'link', 'script', 'style'];
+const ALLOWED_HTML_ELEMENTS = ['html', 'body', 'head', 'title', 'meta', 'link', 'script'];
 
 // Only these specific layout components are allowed (they just wrap children)
 const ALLOWED_LAYOUT_COMPONENTS = ['RootLayout', 'SiteLayout'];
@@ -320,31 +320,12 @@ const rule = {
           return;
         }
 
-        // Allow lowercase HTML elements that are not styled (basic HTML structure)
-        // But check if they have className or style - if so, they're being used as components
         if (tagNameLower && tagName === tagNameLower) {
-          const hasClassName = node.attributes.some(
-            attr => attr.name?.name === 'className' || attr.name?.name === 'style'
-          );
-          
-          // Forbidden HTML elements when used as components
-          const forbiddenHtmlElements = ['button', 'div', 'section', 'article', 'header', 'footer', 'nav', 'aside', 'main'];
-          
-          if (forbiddenHtmlElements.includes(tagNameLower) && hasClassName) {
-            context.report({
-              node,
-              messageId: 'htmlAsComponent',
-              data: { tag: tagNameLower },
-            });
-          }
-          // Also catch any HTML element with className/style (stricter)
-          if (hasClassName && !ALLOWED_HTML_ELEMENTS.includes(tagNameLower)) {
-            context.report({
-              node,
-              messageId: 'htmlAsComponent',
-              data: { tag: tagNameLower },
-            });
-          }
+          context.report({
+            node,
+            messageId: 'htmlAsComponent',
+            data: { tag: tagNameLower },
+          });
           return;
         }
 
@@ -376,4 +357,3 @@ export default {
     'only-white-label-components': rule,
   },
 };
-

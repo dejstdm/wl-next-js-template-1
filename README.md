@@ -15,7 +15,7 @@ This template provides a starting point for creating pages using **only** compon
 - ✅ Theme system support (default, 7up, lays, and more)
 - ✅ TypeScript support
 - ✅ Mobile-first responsive components
-- ✅ CMS-ready (components accept HTML strings from rich text editors)
+- ✅ CMS-ready (supports CMS-provided HTML strings on `HtmlString` props)
 
 ## Getting Started
 
@@ -23,6 +23,7 @@ This template provides a starting point for creating pages using **only** compon
 
 - Node.js 18+ 
 - npm, yarn, pnpm, or bun
+- `@dejstdm/white-label-ui` peer deps: `react@^19.2.3`, `react-dom@^19.2.3`, `swiper@^12.0.0` (already declared in this template’s `package.json`)
 
 ### Installation
 
@@ -31,11 +32,18 @@ This template provides a starting point for creating pages using **only** compon
    npm install
    ```
 
-   The project includes a `.npmrc` file that configures npm to use GitHub Packages for the `@dejstdm/white-label-ui` package. No additional authentication is required for public packages.
+   The project includes a `.npmrc` file that configures npm to use GitHub Packages for the `@dejstdm/white-label-ui` package. You may need to set `NPM_TOKEN` (a GitHub Personal Access Token with `read:packages`) for installation to succeed.
+   
+   `@dejstdm/white-label-ui` includes `@fortawesome/fontawesome-free` as a dependency (installed automatically with the library). You still need to import the Font Awesome CSS in `src/app/layout.tsx` when using social icons (see `AGENTS.md`).
 
 2. **If installation fails with authentication errors:**
    
-   If you encounter authentication errors when installing `@dejstdm/white-label-ui`, you may need to authenticate with GitHub Packages. Create a GitHub Personal Access Token with `read:packages` permission and add it to your `~/.npmrc`:
+   If you encounter authentication errors when installing `@dejstdm/white-label-ui`, you may need to authenticate with GitHub Packages. Create a GitHub Personal Access Token with `read:packages` permission and either set `NPM_TOKEN` or add a token to your `~/.npmrc`:
+   
+   ```bash
+   # Option A: set an env var (works with this repo's .npmrc)
+   export NPM_TOKEN=YOUR_GITHUB_TOKEN
+   ```
    
    ```bash
    # Create/edit ~/.npmrc in your home directory
@@ -67,14 +75,19 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `TextSection` - Text content section with headline and WYSIWYG content
 - `ImageSection` - Image gallery section with optional slider/carousel
 
-### Feature Components
+### Product Components
 - `ProductSlider` - Product carousel/slider with navigation controls
+- `ProductOverview` - Product overview/listing component
+- `ProductDetail` - Product detail component
+
+### Feature Components
 - `RecipeSlider` - Recipe carousel/slider with navigation and pagination
 - `FAQ` - FAQ accordion with expandable questions/answers
 - `SocialMediaFeed` - Social media feed component
 
 ### Social Icons (Font Awesome)
 Social icons use **Font Awesome** icon classes. See [Usage](#usage) for examples.
+If you use `Footer` or `SocialMediaFeed` social links, ensure Font Awesome CSS is imported (see `AGENTS.md`).
 
 ## Usage Example
 
@@ -129,21 +142,34 @@ export default function RootLayout({ children }) {
 }
 ```
 
-**Available themes**: `default`, `7up`, `lays` (check package for latest)
+**Available themes**: `default`, `7up`, `lays` (check package for latest). Use the theme folder name as the `data-theme` value (e.g. `data-theme="7up"`). To see all available themes after install, check `node_modules/@dejstdm/white-label-ui/themes/`.
 
 ## Important Rules
 
 1. **Use only white-label-ui components** - No custom React components for page content
 2. **No custom CSS** - All styling comes from the component library and themes
-3. **CMS content** - Components accept HTML strings from rich text editors (e.g., `headline="<h2>Title</h2>"`)
+3. **CMS content** - Only `HtmlString` props accept HTML strings (e.g., `body="<h2>Title</h2>"`, `text="<p>Content</p>"`); `PlainText` props like `headline` must be plain text
 4. **Swiper CSS** - If using slider components, import Swiper CSS:
    ```typescript
    import 'swiper/css';
    import 'swiper/css/navigation';
-   import 'swiper/css/pagination';
+   import 'swiper/css/pagination'; // Needed for `RecipeSlider`
    ```
+5. **ESLint enforcement** - `npm run lint` uses `white-label-ui/only-white-label-components` to prevent non-allowed UI components and invalid imports (see `AGENTS.md`)
+6. **Props are the API** - Verify prop names in `node_modules/@dejstdm/white-label-ui/dist/*.d.ts` and run `npm run type-check`
+7. **Font Awesome icons** - `@dejstdm/white-label-ui` includes `@fortawesome/fontawesome-free` as a dependency; import `@fortawesome/fontawesome-free/css/all.min.css` in `src/app/layout.tsx` when using social icons
 
 For detailed rules and guidelines, see [`AGENTS.md`](./AGENTS.md).
+
+## TypeScript Types
+
+`@dejstdm/white-label-ui` exports utility, data-structure, and component-props types to keep your code consistent with the component API. Import them from the package:
+
+```ts
+import type { NavBarItem, FooterLink, FooterSocialLink, ProductItem } from '@dejstdm/white-label-ui';
+```
+
+For full typing, you can also import props types like `HeroProps` / `NavBarProps` / `FooterProps`. See `node_modules/@dejstdm/white-label-ui/dist/index.d.ts` for the full exported type list.
 
 ## Project Structure
 
