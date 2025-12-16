@@ -21,6 +21,7 @@ Before writing or modifying any component code:
 - Check `index.d.ts` for all available types
 - Use imported types for data structures
   - Common ones: `NavBarItem`, `FooterLink`, `FooterSocialLink`, `ImageItem`, `ProductItem`, `RecipeItem`, `FAQItem`, `SocialMediaFeedItem`
+  - Also: `ContentBlockItem`, `VideoSource`, `VideoItem`
 
 ### 4. Write Code Using Verified Props
 - Use only the props confirmed from step 2
@@ -51,9 +52,11 @@ Always verify in the actual type files. All available components from `@dejstdm/
 
 - **NavBar**: Uses `items` (array of `NavBarItem`), `logoSrc`, `logoAlt`, `sticky`
 - **Footer**: Uses `logoSrc`, `logoAlt`, `socialLinks` (array of `FooterSocialLink`), `links` (array of `FooterLink`), `copyright`, `copyrightYear`
-- **Hero**: Uses `headline` (PlainText), `body` (HtmlString), `backgroundImage`, `buttonLabel`, `buttonHref`
-- **TextSection**: Uses `headline` (PlainText), `text` (HtmlString)
+- **Hero**: Uses `headline` (PlainText), `subheadline`/`body` (HtmlString), `backgroundImage`, `buttonLabel`, `buttonHref`, `buttonOnClick`
+- **TextSection**: Uses `headline` (PlainText), `subheadline`/`text` (HtmlString), `headlineLevel`
 - **ImageSection**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ImageSection.d.ts`
+- **ContentBlock**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ContentBlock.d.ts`
+- **VideoSection**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/VideoSection.d.ts`
 - **ProductSlider**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ProductSlider.d.ts`
 - **ProductOverview**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ProductOverview.d.ts`
 - **ProductDetail**: Verify props in `node_modules/@dejstdm/white-label-ui/dist/ProductDetail.d.ts`

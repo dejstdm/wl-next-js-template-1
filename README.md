@@ -74,6 +74,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### Content Sections
 - `TextSection` - Text content section with headline and WYSIWYG content
 - `ImageSection` - Image gallery section with optional slider/carousel
+- `ContentBlock` - Content + image section (single or multi-row zig-zag)
+- `VideoSection` - Video gallery/section (one or more videos)
 
 ### Product Components
 - `ProductSlider` - Product carousel/slider with navigation controls
@@ -82,6 +84,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ### Feature Components
 - `RecipeSlider` - Recipe carousel/slider with navigation and pagination
+- `RecipeOverview` - Recipe overview/listing component
 - `FAQ` - FAQ accordion with expandable questions/answers
 - `SocialMediaFeed` - Social media feed component
 

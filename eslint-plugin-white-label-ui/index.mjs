@@ -4,6 +4,8 @@ const ALLOWED_COMPONENTS = [
   'Hero',
   'TextSection',
   'ImageSection',
+  'ContentBlock',
+  'VideoSection',
   'ProductSlider',
   'ProductOverview',
   'ProductDetail',
